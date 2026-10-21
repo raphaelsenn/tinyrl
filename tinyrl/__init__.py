@@ -1,0 +1,1 @@
+from tinyrl.algorithms import DDPG, TD3, SAC

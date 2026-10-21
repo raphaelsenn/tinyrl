@@ -1,0 +1,32 @@
+from typing import Tuple
+import numpy as np
+import torch
+
+from tinyrl.buffers.base import BufferBase
+
+
+class ReplayBuffer(BufferBase):
+    def __init__(
+            self, 
+            obs_dim: int, 
+            action_dim: int, 
+            capacity: int, 
+            batch_size: int,
+            device: str = "cpu"
+    ) -> None:
+        super().__init__(obs_dim, action_dim, capacity, batch_size, device)
+
+    def sample(self) -> Tuple[torch.Tensor, ...]:
+        assert self.size >= self.batch_size, (
+            f"ReplayBuffer of size {self.size} can't sample batch of size {self.batch_size}."
+        )
+        batch_size = min(self.size, self.batch_size)
+        indices = np.random.randint(0, self.size, size=batch_size, dtype=np.int64)
+
+        obs_bt = torch.as_tensor(self.obs[indices], dtype=torch.float32, device=self.device)
+        actions_bt = torch.as_tensor(self.actions[indices], dtype=torch.float32, device=self.device)
+        rewards_bt = torch.as_tensor(self.rewards[indices], dtype=torch.float32, device=self.device)
+        obs_next_bt = torch.as_tensor(self.obs_next[indices], dtype=torch.float32, device=self.device)
+        dones_bt = torch.as_tensor(self.dones[indices], dtype=torch.float32, device=self.device)
+
+        return obs_bt, actions_bt, rewards_bt, obs_next_bt, dones_bt
