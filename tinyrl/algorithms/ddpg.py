@@ -1,7 +1,6 @@
 from typing import Dict, Any
 
 import copy
-import time
 import torch
 import torch.nn.functional as F
 import gymnasium as gym
@@ -140,8 +139,6 @@ class DDPG(OffPolicyAlgorithm):
         self.episode_counter = 1
         self.grad_step_counter = 1
         self.global_step_counter = 1
-
-        start_time = time.monotonic()
 
         for _ in range(1, n_timesteps + 1):
             action = self.act_numpy(obs, deterministic = False)

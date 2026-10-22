@@ -1,8 +1,6 @@
 from typing import Dict, Any
-from collections import deque
 
 import copy
-import time
 import torch
 import torch.nn.functional as F
 from torch.distributions import Normal
@@ -24,7 +22,7 @@ class SAC(OffPolicyAlgorithm):
         lr_actor: float = 0.0003,
         lr_critic: float = 0.0003,
         lr_alpha: float = 0.0003,
-        gamma: float = 0.992,
+        gamma: float = 0.99,
         tau_polyak: float = 0.005,
         buffer_size: int = 1_000_000,
         buffer_start_size: int = 10_000,

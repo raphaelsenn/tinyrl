@@ -1,7 +1,6 @@
 from typing import Dict, Any
 
 import copy
-import time
 import torch
 import torch.nn.functional as F
 import gymnasium as gym
@@ -27,7 +26,7 @@ class TD3(OffPolicyAlgorithm):
         ac_kwargs: Dict[str, Any] = DEFAULT_AC_KWARGS,
         lr_actor: float = 0.0003,
         lr_critic: float = 0.0003,
-        gamma: float = 0.995,
+        gamma: float = 0.99,
         tau_polyak: float = 0.005,
         buffer_size: int = 3_000_000,
         buffer_start_size: int = 10_000,

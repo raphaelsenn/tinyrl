@@ -1,5 +1,12 @@
 # tinyrl
 
+|    |    |    |    |    |    |
+| -- | -- | -- | -- | -- | -- |
+| ![pusher_gif](./assets/pusher.gif) | ![humanoid_gif](./assets/humanoid.gif) | ![hopper_gif](./assets/hopper.gif) | ![walker2d_gif](./assets/walker2d.gif) | ![ant_gif](./assets/ant.gif) | ![halfcheetah_gif](./assets/halfcheetah.gif) |
+| ![pusher_lrcurve](./assets/pusher_curve.png) | ![humanoid_lrcurve](./assets/humanoid_curve.png) | ![hopper_lrcurve](./assets/hopper_curve.png) | ![walker2d_lrcurve](./assets/walker2d_curve.png) | ![ant_lrcurve](./assets/ant_curve.png) | ![halfcheetah_lrcurve](./assets/halfcheetah_curve.png) |
+
+Figures: Learning curves for the OpenAI Gym continuous control tasks Pusher-v5, Humanoid-v5, Hopper-v5, Walker2d-v5, Ant-v5, and HalfCheetah-v5. The shaded region represents the standard deviation of the average evaluation over 3 trials (across 3 different seeds). Curves are smoothed with an average filter.
+
 #### Install `tinyrl`
 
 1. Clone the repository:

@@ -35,6 +35,18 @@ TD3_CONFIG = {
 }
 
 
+SAC_CONFIG = {
+    "lr_actor": 0.0003,
+    "lr_critic": 0.0003,
+    "buffer_size": 1_000_000,
+    "buffer_start_size": 25_000,
+    "batch_size": 256,
+    "tau_polyak": 0.005,
+    "save_every": 5_000,
+    "eval_every": 5_000,
+}
+
+
 def algorithm_factory(args: Namespace, env: gym.Env) -> RLAlgorithm:
     if args.algorithm.lower() == "ddpg":
         return DDPG(
@@ -52,6 +64,14 @@ def algorithm_factory(args: Namespace, env: gym.Env) -> RLAlgorithm:
             verbose=args.verbose, 
             **TD3_CONFIG
         )
+    elif args.algorithm.lower() == "sac":
+        return SAC(
+            env=env,
+            seed=args.seed,
+            device=args.device,
+            verbose=args.verbose, 
+            **SAC_CONFIG
+        )
     else:
         raise ValueError("Unkown algorithm.")
 
@@ -60,7 +80,7 @@ def parse_args() -> Namespace:
     parser = ArgumentParser(description="Tiny Deep RL Training")
 
     parser.add_argument("--env", type=str, default="HalfCheetah-v5")
-    parser.add_argument("--algorithm", type=str, default="td3")
+    parser.add_argument("--algorithm", type=str, default="sac")
     parser.add_argument("--n_timesteps", type=int, default=1_000_000)
     parser.add_argument("--device", type=str, default="mps")
     parser.add_argument("--seed", type=int, default=0)

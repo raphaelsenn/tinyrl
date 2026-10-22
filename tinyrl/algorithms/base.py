@@ -2,7 +2,6 @@ from abc import ABC, abstractmethod
 from typing import Dict, Any
 
 import os
-import time
 import random
 import copy
 
@@ -86,6 +85,7 @@ class RLAlgorithm(ABC):
 
         # Evaluation
         self.eval_stats = EvluationStats()
+        self.curr_incumbent = float("-inf")     # Best achived reward so far
 
         # Reproducability
         self.seed = seed 
@@ -113,7 +113,7 @@ class RLAlgorithm(ABC):
         return action
 
     @torch.no_grad()
-    def evaluate(self, n_eval_episodes: int = 10) -> None:
+    def evaluate(self, n_eval_episodes: int = 10) -> float:
         env = self.val_env
         episode_rewards = []
 
@@ -134,6 +134,8 @@ class RLAlgorithm(ABC):
             episode_rewards.append(episode_reward)
 
         self.eval_stats.update(rewards=np.asarray(episode_rewards, dtype=np.float32))
+        
+        return self.eval_stats.last_average_reward
 
     def set_seeds(self) -> None:
         random.seed(self.seed)
@@ -157,24 +159,27 @@ class RLAlgorithm(ABC):
         print(report)
 
     def update(self) -> None:
+        average_reward = float("-inf") 
         if self.global_step_counter % self.eval_every == 0:
-            self.evaluate()
+            average_reward = self.evaluate()
 
             if self.verbose is True:
                 self.print_stats()
 
         if self.global_step_counter % self.save_every == 0:
-            self.save()
+            self.save(average_reward)
 
-    def save(self) -> None:
+    def save(self, average_reward: float) -> None:
         algo = self.__class__.__name__.lower()
         env = self.env.spec.id.lower()
         run = f"{env}-{algo}-lr_pi{self.lr_actor}-lr_q{self.lr_critic}-seed{self.seed}"
         path = os.path.join("checkpoints", algo, run)
         os.makedirs(path, exist_ok=True)
 
-        torch.save(self.actor.state_dict(), os.path.join(path, f"actor-{self.global_step_counter}.pt"))
-        torch.save(self.critic.state_dict(), os.path.join(path, f"critic-{self.global_step_counter}.pt"))
+        if self.curr_incumbent < average_reward:
+            torch.save(self.actor.state_dict(), os.path.join(path, f"actor.pt"))
+            torch.save(self.critic.state_dict(), os.path.join(path, f"critic.pt"))
+        
         self.eval_stats.to_csv(os.path.join(path, "evaluation.csv"))
 
 
