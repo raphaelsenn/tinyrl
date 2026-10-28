@@ -224,3 +224,4 @@ __marimo__/
 *.csv
 *.pt
 checkpoints
+plots2.ipynb
