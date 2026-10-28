@@ -5,7 +5,7 @@ ENVS=(
     "HalfCheetah-v5"
     "Hopper-v5"
     "Humanoid-v5"
-    "Walker2d-v5",
+    "Walker2d-v5"
     "Pusher-v5"
 )
 
