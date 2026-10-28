@@ -18,8 +18,8 @@ DDPG_CONFIG = {
     "exploration_noise" : 0.1,
     "policy_delay": 2,
     "tau_polyak": 0.005,
-    "save_every": 5_000,
-    "eval_every": 5_000,
+    "save_every": 10_000,
+    "eval_every": 10_000,
 }
 
 
@@ -30,20 +30,21 @@ TD3_CONFIG = {
     "buffer_start_size": 25_000,
     "batch_size": 256,
     "tau_polyak": 0.005,
-    "save_every": 5_000,
-    "eval_every": 5_000,
+    "save_every": 10_000,
+    "eval_every": 10_000,
 }
 
 
 SAC_CONFIG = {
     "lr_actor": 0.0003,
     "lr_critic": 0.0003,
+    "lr_alpha": 0.0003,
     "buffer_size": 1_000_000,
     "buffer_start_size": 25_000,
     "batch_size": 256,
     "tau_polyak": 0.005,
-    "save_every": 5_000,
-    "eval_every": 5_000,
+    "save_every": 10_000,
+    "eval_every": 10_000,
 }
 
 
@@ -82,7 +83,7 @@ def parse_args() -> Namespace:
     parser.add_argument("--env", type=str, default="HalfCheetah-v5")
     parser.add_argument("--algorithm", type=str, default="sac")
     parser.add_argument("--n_timesteps", type=int, default=1_000_000)
-    parser.add_argument("--device", type=str, default="mps")
+    parser.add_argument("--device", type=str, default="cuda" if torch.cuda.is_available() else "cpu")
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--verbose", default=True)
 

@@ -113,7 +113,7 @@ class RLAlgorithm(ABC):
         return action
 
     @torch.no_grad()
-    def evaluate(self, n_eval_episodes: int = 10) -> float:
+    def evaluate(self, n_eval_episodes: int = 3) -> float:
         env = self.val_env
         episode_rewards = []
 
@@ -168,6 +168,9 @@ class RLAlgorithm(ABC):
 
         if self.global_step_counter % self.save_every == 0:
             self.save(average_reward)
+        
+        if self.curr_incumbent < average_reward:
+            self.curr_incumbent = average_reward
 
     def save(self, average_reward: float) -> None:
         algo = self.__class__.__name__.lower()
