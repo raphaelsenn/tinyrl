@@ -46,7 +46,7 @@ git clone https://github.com/raphaelsenn/tinyrl
 2. Enter the repository:
 
 ```bash
-cd tiny
+cd tinyrl
 ```
 
 3. Create and activate a conda environment:
