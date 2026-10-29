@@ -4,6 +4,9 @@
 
 tinyrl implements the following deep reinforcement learning algorithms:
 
+* DQN: ["Human-level control through deep reinforcement learning"](https://www.nature.com/articles/nature14236) from Mnih et al., 2015
+
+
 * DDPG: ["Continuous control with deep reinforcement learning"](https://arxiv.org/abs/1509.02971) from Lillicrap et al., 2015
 
 * TD3: ["Addressing Function Approximation Error in Actor-Critic Methods"](https://arxiv.org/abs/1802.09477) from Fujimoto et al., 2018
@@ -27,13 +30,26 @@ Figures: Learning curves for the OpenAI Gym continuous control tasks Pusher-v5, 
 | --  | -- | -- | -- |
 | Pusher-v5 |  -23.75 ± 1.71 | -25.58 ± 0.54 | -30.00 ± 0.10 |
 | Humanoid-v5 |  5042.91 ± 65.42 | 5091.95 ± 18.53 | 158.16 ± 2.16|
-| HalfCheetah-v5 | 8821.033 ± 1453.32 | 10272.87 ± 482.82 | 10886.83 ± 320.85 |
+| HalfCheetah-v5 | 10821.033 ± 253.32 | 10272.87 ± 482.82 | 10886.83 ± 320.85 |
 | Ant-v5 |  2894.23	 ± 96.81 | 4325.436361 ± 543.04 | 1074.45 ± 311.84 |
 | Hopper-v5 | 3279.45 ± 49.56 | 3418.76 ± 164.38 | 2090.75 ± 352.70 |
 | Walker2d-v5 | 4293.15 ± 466.90 | 3730.64 ± 191.56 | 1891.57 ± 233.16 |
 
 *Table 1: Max Average Return over 3 trials of 1 million time steps. Maximum value for each task is bolded. ± corresponds to a single
 standard deviation over trials.*
+
+
+## tinyrl@Atari
+
+Note that due to my limited compute resources, I evaluated only two environments: SpaceInvaders and Breakout.
+
+| | |
+| ------------------------- | -------------------- |
+| ![dqn_spaceinvaders_gif](./assets/dqn_spaceinvaders.gif) | ![dqn_breakout_gif](./assets/dqn_breakout.gif) | 
+| ![dqn_training_algorithm](./assets/average_score_spaceinvaders.png) | ![q_learning_objective](./assets/average_score_breakout.png) |
+
+Figures: Learning curves of DQN for the Atari games SpaceInvaders and Breakout.
+
 
 ## tinyrl@Install
 
